@@ -13,6 +13,7 @@ CREATE PROCEDURE create_rpt_identifiers(IN _location VARCHAR(255)) BEGIN
     pre_art_number      	VARCHAR(50),
     all_pre_art_numbers 	VARCHAR(1000),
     ncd_number     		VARCHAR(50),
+    pdc_number     		VARCHAR(50),
     all_ncd_numbers		VARCHAR(1000),
     yendanafe_number		VARCHAR(50),
     all_yendanafe_numbers	VARCHAR(1000)
@@ -50,6 +51,10 @@ CREATE PROCEDURE create_rpt_identifiers(IN _location VARCHAR(255)) BEGIN
   INSERT INTO rpt_identifiers (patient_id, all_ncd_numbers)
     SELECT r.patient_id, group_concat(DISTINCT ncd_number ORDER BY ncd_number asc SEPARATOR ', ') FROM mw_ncd_register r GROUP BY r.patient_id
   ON DUPLICATE KEY UPDATE all_ncd_numbers = values(all_ncd_numbers);
+
+  INSERT INTO rpt_identifiers (patient_id, pdc_number)
+  SELECT r.patient_id, r.pdc_number from mw_pdc_register r where r.location = _location
+  ON DUPLICATE KEY UPDATE pdc_number = values(pdc_number);
   
   INSERT INTO rpt_identifiers (patient_id, yendanafe_number)
     SELECT opi.patient_id, opi.identifier as yendanafe_number from omrs_patient_identifier opi where opi.location = _location and opi.type = "Yendanafe Identifier"

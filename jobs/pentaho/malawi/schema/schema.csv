@@ -10,6 +10,7 @@ table,mw_art_register
 table,mw_ncd_diagnoses
 table,mw_ncd_visits
 table,mw_ncd_register
+table,mw_pdc_register
 function,first_date_no_breastfeeding
 function,first_test_result_by_date_entered
 function,latest_test_result_by_date_entered

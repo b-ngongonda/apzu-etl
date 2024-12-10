@@ -219,4 +219,22 @@ CREATE PROCEDURE create_rpt_trace_criteria(IN _endDate DATE, IN _location VARCHA
 
   END IF;
 
+  IF NOT _phase1Only THEN
+
+      -- Late PDC
+      INSERT INTO rpt_trace_criteria(patient_id, criteria)
+      SELECT  patient_id, 'LATE_PDC'
+      FROM    rpt_active_pdc
+      WHERE   days_late_appt IS NOT NULL
+        AND     days_late_appt >= (_minWks*7)
+        AND     (_maxWks IS NULL OR days_late_appt < (_maxWks*7))
+        AND     (
+                  _minWks != 6
+              OR
+                  ( _minWks = 6 AND patient_id in ( select DISTINCT patient_id from rpt_priority_patients ) )
+          )
+      ;
+
+  END IF;
+
 END
