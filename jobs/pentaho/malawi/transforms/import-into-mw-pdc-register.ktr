@@ -1091,7 +1091,7 @@ order by 	i.patient_id, i.location</sql>
       <schema_name/>
     </partitioning>
     <connection>Warehouse</connection>
-    <schema>neno_warehouse</schema>
+    <schema/>
     <table>mw_pdc_register</table>
     <commit>1000</commit>
     <truncate>N</truncate>
