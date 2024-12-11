@@ -37,6 +37,7 @@ procedure,create_rpt_identifiers
 procedure,create_rpt_active_eid
 procedure,create_rpt_active_art
 procedure,create_rpt_active_ncd
+procedure,create_rpt_active_pdc
 procedure,create_rpt_priority_patients
 procedure,create_rpt_trace_criteria
 procedure,create_rpt_appt_alerts
