@@ -21,6 +21,7 @@ function,latest_mental_health_visit
 function,latest_test_result_by_sample_date
 function,get_regimen
 function,get_regimen_start
+procedure,create_last_art_outcome_at_facility
 procedure,create_pepfar_cohort_disaggregated
 procedure,create_pepfar_cohort_disaggregated_generic
 procedure,create_moh_cohort_disaggregated
