@@ -458,6 +458,8 @@
   chf_followup			     BOOLEAN,
   ncd_other_initial                 BOOLEAN,
   ncd_other_followup                BOOLEAN,
+  sickle_cell_initial               BOOLEAN,
+  sickle_cell_followup              BOOLEAN,
   next_appointment_date  DATE,
   systolic_bp            DOUBLE,
   diastolic_bp           DOUBLE,
@@ -468,7 +470,7 @@
       <xloc>976</xloc>
       <yloc>80</yloc>
       <width>452</width>
-      <heigth>503</heigth>
+      <heigth>537</heigth>
       <fontname>Ubuntu</fontname>
       <fontsize>11</fontsize>
       <fontbold>N</fontbold>
@@ -943,6 +945,12 @@ var chf_initial = visit_types.indexOf('CHF_INITIAL') != -1;
 var chf_followup = visit_types.indexOf('CHF_FOLLOWUP') != -1;
 var ncd_other_initial = visit_types.indexOf('NCD_OTHER_INITIAL') != -1;
 var ncd_other_followup = visit_types.indexOf('NCD_OTHER_FOLLOWUP') != -1;
+var sickle_cell_initial = visit_types.indexOf('SICKLE_CELL_DISEASE_INITIAL') != -1;
+var sickle_cell_followup = visit_types.indexOf('SICKLE_CELL_DISEASE_FOLLOWUP') != -1;
+
+
+
+
 </jsScript_script>
       </jsScript>
     </jsScripts>
@@ -1150,6 +1158,150 @@ var ncd_other_followup = visit_types.indexOf('NCD_OTHER_FOLLOWUP') != -1;
       <field>
         <name>ncd_other_followup</name>
         <rename>ncd_other_followup</rename>
+        <type>Boolean</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>
+      <field>
+        <name>cc_initial</name>
+        <rename>cc_initial</rename>
+        <type>Boolean</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>
+      <field>
+        <name>cc_followup</name>
+        <rename>cc_followup</rename>
+        <type>Boolean</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>
+      <field>
+        <name>diabetes_htn_initial</name>
+        <rename>diabetes_htn_initial</rename>
+        <type>Boolean</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>
+      <field>
+        <name>diabetes_htn_followup</name>
+        <rename>diabetes_htn_followup</rename>
+        <type>Boolean</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>
+      <field>
+        <name>asthma_initial</name>
+        <rename>asthma_initial</rename>
+        <type>Boolean</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>
+      <field>
+        <name>asthma_followup</name>
+        <rename>asthma_followup</rename>
+        <type>Boolean</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>
+      <field>
+        <name>epilepsy_initial</name>
+        <rename>epilepsy_initial</rename>
+        <type>Boolean</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>
+      <field>
+        <name>epilepsy_followup</name>
+        <rename>epilepsy_followup</rename>
+        <type>Boolean</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>
+      <field>
+        <name>mental_health_initial</name>
+        <rename>mental_health_initial</rename>
+        <type>Boolean</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>
+      <field>
+        <name>mental_health_followup</name>
+        <rename>mental_health_followup</rename>
+        <type>Boolean</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>
+      <field>
+        <name>ckd_initial</name>
+        <rename>ckd_initial</rename>
+        <type>Boolean</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>
+      <field>
+        <name>ckd_followup</name>
+        <rename>ckd_followup</rename>
+        <type>Boolean</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>
+      <field>
+        <name>chf_initial</name>
+        <rename>chf_initial</rename>
+        <type>Boolean</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>
+      <field>
+        <name>chf_followup</name>
+        <rename>chf_followup</rename>
+        <type>Boolean</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>
+      <field>
+        <name>ncd_other_initial</name>
+        <rename>ncd_other_initial</rename>
+        <type>Boolean</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>
+      <field>
+        <name>ncd_other_followup</name>
+        <rename>ncd_other_followup</rename>
+        <type>Boolean</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>
+      <field>
+        <name>sickle_cell_initial</name>
+        <rename>sickle_cell_initial</rename>
+        <type>Boolean</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>
+      <field>
+        <name>sickle_cell_followup</name>
+        <rename>sickle_cell_followup</rename>
         <type>Boolean</type>
         <length>-1</length>
         <precision>-1</precision>
@@ -1718,7 +1870,9 @@ where 		e.encounter_type in (
   'CHF_INITIAL',
   'CHF_FOLLOWUP',
   'NCD_OTHER_INITIAL',
-  'NCD_OTHER_FOLLOWUP'
+  'NCD_OTHER_FOLLOWUP',
+  'SICKLE_CELL_DISEASE_INITIAL',
+  'SICKLE_CELL_DISEASE_FOLLOWUP'
   
 )
 group by 	e.patient_id, e.encounter_date, e.location
@@ -2921,6 +3075,14 @@ order by 	patient_id, visit_date, location</sql>
         <stream_name>ncd_other_followup</stream_name>
       </field>
       <field>
+        <column_name>sickle_cell_initial</column_name>
+        <stream_name>sickle_cell_initial</stream_name>
+      </field>
+      <field>
+        <column_name>sickle_cell_followup</column_name>
+        <stream_name>sickle_cell_followup</stream_name>
+      </field>
+      <field>
         <column_name>next_appointment_date</column_name>
         <stream_name>next_appointment_date</stream_name>
       </field>
@@ -2991,22 +3153,6 @@ order by 	patient_id, visit_date, location</sql>
       <field>
         <column_name>num_seizures</column_name>
         <stream_name>num_seizures</stream_name>
-      </field>
-      <field>
-        <column_name>seizure_activity</column_name>
-        <stream_name>seizure_activity_since_last_visit</stream_name>
-      </field>
-      <field>
-        <column_name>hospitalized_since_last_visit</column_name>
-        <stream_name>hospitalized</stream_name>
-      </field>
-      <field>
-        <column_name>hiv_result</column_name>
-        <stream_name>hiv_test_result</stream_name>
-      </field>
-      <field>
-        <column_name>foot_check</column_name>
-        <stream_name>foot_exam</stream_name>
       </field>
     </fields>
     <attributes/>

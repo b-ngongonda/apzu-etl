@@ -726,7 +726,7 @@ from        omrs_obs o
 where 		o.concept = "Chronic care diagnosis"
 and encounter_type IN ("DIABETES HYPERTENSION INITIAL VISIT","CHRONIC_CARE_INITIAL",
 "MENTAL_HEALTH_INITIAL","EPILEPSY_INITIAL","CKD_INITIAL","CHF_INITIAL",
-"NCD_OTHER_INITIAL","ASTHMA_INITIAL")
+"NCD_OTHER_INITIAL","ASTHMA_INITIAL","SICKLE_CELL_DISEASE_INITIAL")
 order by 	patient_id, obs_group_id, encounter_type, location</sql>
     <limit>0</limit>
     <lookup/>

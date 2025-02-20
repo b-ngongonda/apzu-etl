@@ -21,6 +21,8 @@ create table mw_ncd_visits (
   chf_followup			     BOOLEAN,
   ncd_other_initial                 BOOLEAN,
   ncd_other_followup                BOOLEAN,
+  sickle_cell_initial               BOOLEAN,
+  sickle_cell_followup              BOOLEAN,
   next_appointment_date             DATE,
   systolic_bp                       DECIMAL(10,2),
   diastolic_bp                      DECIMAL(10,2),
