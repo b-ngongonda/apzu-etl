@@ -116,6 +116,7 @@ configuration:
     - tableName: "mw_sickle_cell_disease_history_of_hospitalization"
     - tableName: "mw_sickle_cell_disease_followup"
     - tableName: "mw_tb_initial"
+    - tableName: "mw_tb_followup"
     - tableName: "omrs_encounter"
     - tableName: "omrs_encounter_provider"
     - tableName: "omrs_obs"
