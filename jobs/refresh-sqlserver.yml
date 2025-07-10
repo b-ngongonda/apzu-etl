@@ -117,6 +117,7 @@ configuration:
     - tableName: "mw_sickle_cell_disease_followup"
     - tableName: "mw_tb_initial"
     - tableName: "mw_tb_followup"
+    - tableName: "mw_tb_post_lung_disease"
     - tableName: "omrs_encounter"
     - tableName: "omrs_encounter_provider"
     - tableName: "omrs_obs"
