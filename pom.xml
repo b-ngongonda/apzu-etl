@@ -38,19 +38,29 @@
             <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
                 <version>3.2.0</version>
-                <configuration>
-                    <resources>
-                        <resource>
-                            <directory>${basedir}</directory>
-                            <filtering>false</filtering>
-                            <includes>
-                                <include>datasources/**</include>
-                                <include>jobs/**</include>
-                            </includes>
-                        </resource>
-                    </resources>
-                    <outputDirectory>${project.build.directory}/apzu-etl/</outputDirectory>
-                </configuration>
+                <executions>
+                    <execution>
+                        <id>package-datasources-and-jobs</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <encoding>UTF-8</encoding>
+                            <resources>
+                                <resource>
+                                    <directory>${basedir}</directory>
+                                    <filtering>false</filtering>
+                                    <includes>
+                                        <include>datasources/**</include>
+                                        <include>jobs/**</include>
+                                    </includes>
+                                </resource>
+                            </resources>
+                            <outputDirectory>${project.build.directory}/apzu-etl/</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
