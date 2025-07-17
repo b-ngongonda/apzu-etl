@@ -10,6 +10,7 @@ CREATE TABLE mw_tb_initial (
   ctx_start_date 				DATE,
   hiv_test_history  			VARCHAR(255),
   regimen_rhze					INT,
+  initiation_month_weight		INT,
   dot_option  					VARCHAR(255),
   source_of_referral  			VARCHAR(255),
   dst_result  					VARCHAR(255),
