@@ -44,7 +44,7 @@ configuration:
   iterations:
     - tableName: "mw_art_followup"
     - tableName: "mw_art_initial"
-    - tablename: "mw_art_followup_testing"
+    - tableName: "mw_art_followup_testing"
     - tableName: "mw_art_regimen"
     - tableName: "mw_art_regimen_changes"
     - tableName: "mw_art_register"
@@ -109,7 +109,7 @@ configuration:
     - tableName: "mw_poc_htc"
     - tableName: "mw_poc_nutrition"
     - tableName: "mw_poc_tb_screening"
-    - tablename: "mw_poc_viral_load_screening"
+    - tableName: "mw_poc_viral_load_screening"
     - tableName: "mw_users"
     - tableName: "mw_sickle_cell_disease_initial"
     - tableName: "mw_sickle_cell_disease_quarterly_screening"
