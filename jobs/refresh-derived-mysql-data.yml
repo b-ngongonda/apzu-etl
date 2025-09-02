@@ -1,8 +1,6 @@
 # Takes in datasourceName parameter
 type: "iterating-job"
 description: "Create derived tables in ${datasourceName}"
-parameters:
-  datasourceName: "${datasourceName}"
 configuration:
   jobTemplate:
     path: "create-derived-table-in-datasource.yml"
