@@ -1,7 +1,5 @@
 type: "job-pipeline"
 description: "Refreshing Lower Neno data"
-schedule:
-  cron: "${executeCron.refreshLowerNeno}"
 configuration:
   jobs:
 

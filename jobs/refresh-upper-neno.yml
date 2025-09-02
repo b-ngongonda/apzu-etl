@@ -1,7 +1,5 @@
 type: "job-pipeline"
 description: "Refreshing Upper Neno data"
-schedule:
-  cron: "${executeCron.refreshUpperNeno}"
 configuration:
   jobs:
 
