@@ -9,6 +9,7 @@ CREATE TABLE mw_sickle_cell_disease_followup (
   bp_systolic 				int DEFAULT NULL,
   bp_diastolic		 		int DEFAULT NULL,
   hr			 		int DEFAULT NULL,
+  hb			 		int DEFAULT NULL,
   spo2				 	int DEFAULT NULL,
   temperature				int DEFAULT NULL,
   hospitalized_since_last_visit		varchar(255) DEFAULT NULL,
