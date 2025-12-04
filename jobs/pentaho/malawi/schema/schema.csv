@@ -54,6 +54,8 @@ procedure,create_pepfar_tx_tb
 procedure,create_pepfar_tx_tb_generic
 procedure,create_pepfar_tx_tml
 procedure,create_pepfar_tx_tml_generic
+procedure,create_pepfar_tx_hiv_htn
+procedure,create_pepfar_tx_hiv_htn_generic
 procedure,create_survival_analysis
 procedure,create_survival_analysis_option_b
 procedure,create_tb_age_groups
