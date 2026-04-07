@@ -6,10 +6,8 @@ to enable growth beyond Pentaho and to allow for execution through the [PETL](ht
 
 This project currently supports and executes the following jobs:
 
-1. ETL from an Upper Neno OpenMRS database into an Upper Neno MySQL warehouse database
-2. ETL from a Lower Neno OpenMRS database into a Lower Neno MySQL warehouse database
-3. ETL from the Upper Neno MySQL warehoues database into a Unified SQL Server reporting database
-4. ETL from the Upper Neno MySQL warehoues database into a Unified SQL Server reporting database
+1. ETL from OpenMRS database into MySQL warehouse database
+2. ETL from MySQL warehouse database into a SQL Server reporting database
 
 # Installation
 
@@ -19,13 +17,13 @@ For implementers, see [Puppet](https://github.com/PIH/mirebalais-puppet/tree/mas
 The recommended Java version is **OpenJDK 8 JDK**
 
 ### Source MySQL databases
-You must have access to source MySQL databases for Upper and Lower Neno.
+You must have access to source MySQL OpenMRS database
 The recommendation is that these databases are replicas of production DBs, not the actual production instances, as a 
 precaution to ensure no production data is inadvertently affected by the ETL process.
 
 ### Target MySQL databases
-* You must have access to a target MySQL instance into which to ETL from Upper and Lower Neno
-* You must create new databases inside this MySQL instance for both Upper and Lower Neno to use
+* You must have access to a target MySQL instance into which to ETL from the OpenMRS MySQL database
+* You must create new databases inside this MySQL instance for OpenMRS to use
 
 Example:
 
@@ -60,18 +58,16 @@ The directory structure should look like this:
 ```bash
 /opt/petl/apzu-etl/
   ├── datasources/
-    ├── consolidatedReporting.yml
-    ├── lowerNenoReporting.yml
-    ├── upperNenoReporting.yml
+    ├── mysqlReporting.yml
+    ├── sqlServerReporting.yml
   ├── jobs/
       ├── pentaho/
           ├── config/...
           ├── opemrs/...
           ├── malawi/...
       ├── refresh-full.yml
-      ├── refresh-lower-neno.yml
-      ├── refresh-sqlserver.yml
-      ├── refresh-upper-neno.yml
+      ├── refresh-mysql-reporting.yml
+      ├── refresh-sqlserver-reporting.yml
       ├── ...
   ├── application.yml
   ├── petl.jar

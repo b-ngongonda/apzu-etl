@@ -1,0 +1,7 @@
+databaseType: "mysql"
+host: ${mysqlReporting.host}
+port: ${mysqlReporting.port}
+databaseName: ${mysqlReporting.databaseName}
+user: ${mysqlReporting.user}
+password: ${mysqlReporting.password}
+options: ${mysqlReporting.options}
