@@ -1,14 +1,6 @@
-# Currently we have this configured as a job pipeline, with 1 max concurrent job (eg. execute each job in serial)
-# If we have the server resources, and want to reduce loading time, we could adapt this to use a nested iterating-job
-# that would execute the upper-neno and lower-neno refreshes concurrently.
 type: "job-pipeline"
-description: "Refresh combined DW in SQL Server"
+description: "Refresh full DW in MySQL and SQL Server"
 configuration:
   jobs:
-    - path: "refresh-upper-neno.yml"
-    - path: "refresh-lower-neno.yml"
-    - path: "refresh-sqlserver.yml"
-
-# If you never want this to execute on a schedule, but rather plan to execute it only from startup.jobs, you can remove this schedule property
-# If you wish to execute the job on a different schedule, you can adjust that here
-
+    - path: "refresh-mysql-reporting.yml"
+    - path: "refresh-sqlserver-reporting.yml"

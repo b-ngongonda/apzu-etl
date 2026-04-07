@@ -1,0 +1,6 @@
+databaseType: "sqlserver"
+host: ${sqlServerReporting.host}
+port: ${sqlServerReporting.port}
+databaseName: ${sqlServerReporting.databaseName}
+user: ${sqlServerReporting.user}
+password: ${sqlServerReporting.password}

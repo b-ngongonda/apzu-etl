@@ -2,7 +2,7 @@
 
 # We iterate over each specified tableName that we wish to import
 type: "iterating-job"
-description: "Load upper and lower neno reporting tables to SQL Server"
+description: "Load mysql reporting tables to SQL Server"
 configuration:
   maxConcurrentJobs: 1 # Tweak this setting to import more or fewer tables concurrently, to hone performance
   jobTemplate: # For each iteration, we execute a pipeline to import data into a given table
@@ -16,20 +16,19 @@ configuration:
           description: "Drop and create table: ${tableName} in SQL Server"
           configuration:
             source:
-              datasource: "upperNenoReporting.yml" # We assume that the two source databases have the same schema, and choose one here
+              datasource: "mysqlReporting.yml" # We assume that the two source databases have the same schema, and choose one here
               tableName: "${tableName}"
             target:
-              datasource: "consolidatedReporting.yml"
+              datasource: "sqlServerReporting.yml"
               tableName: "${tableName}"
               actionIfExists: "drop"
         # Next step is we iterate over sources and import from each
         - type: "iterating-job"
-          description: "Iterating job over upper and lower neno reporting to load ${tableName} in SQL Server"
+          description: "Iterating job over mysql reporting database to load ${tableName} in SQL Server"
           configuration:
-            maxConcurrentJobs: 2 # To run the Upper and Lower Neno imports at the same time, use 2.  Otherwise, use 1.
+            maxConcurrentJobs: 1
             iterations:
-              - extractDatasource: "upperNenoReporting.yml"
-              - extractDatasource: "lowerNenoReporting.yml"
+              - extractDatasource: "mysqlReporting.yml"
             jobTemplate:
               type: "sqlserver-bulk-import"
               description: "Load ${tableName} in SQL Server from ${extractDatasource}"
@@ -38,7 +37,7 @@ configuration:
                   datasource: "${extractDatasource}"
                   query: "selectAllFromTable.sql"
                 load:
-                  datasource: "consolidatedReporting.yml"
+                  datasource: "sqlServerReporting.yml"
                   table: "${tableName}"
   # For any new table created in the Pentaho pipeline that we want to exist in SQL Server, it needs to be added as an "iteration" below
   iterations:

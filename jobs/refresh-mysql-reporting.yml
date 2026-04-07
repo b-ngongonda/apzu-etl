@@ -1,23 +1,23 @@
 type: "job-pipeline"
-description: "Refreshing Upper Neno data"
+description: "Refreshing OpenMRS data"
 configuration:
   jobs:
 
     - type: "pentaho-job"
-      description: "Execute Upper Neno Pentaho pipeline"
+      description: "Execute OpenMRS Pentaho pipeline"
 
       parameters:
         pih.pentahoHome: "${petl.jobDir}/pentaho"
-        openmrs.db.host: "${upperNenoOpenmrs.host}"
-        openmrs.db.port: "${upperNenoOpenmrs.port}"
-        openmrs.db.name: "${upperNenoOpenmrs.databaseName}"
-        openmrs.db.user: "${upperNenoOpenmrs.user}"
-        openmrs.db.password: "${upperNenoOpenmrs.password}"
-        warehouse.db.host: "${upperNenoReporting.host}"
-        warehouse.db.port: "${upperNenoReporting.port}"
-        warehouse.db.name: "${upperNenoReporting.databaseName}"
-        warehouse.db.user: "${upperNenoReporting.user}"
-        warehouse.db.password: "${upperNenoReporting.password}"
+        openmrs.db.host: "${mysqlOpenmrs.host}"
+        openmrs.db.port: "${mysqlOpenmrs.port}"
+        openmrs.db.name: "${mysqlOpenmrs.databaseName}"
+        openmrs.db.user: "${mysqlOpenmrs.user}"
+        openmrs.db.password: "${mysqlOpenmrs.password}"
+        warehouse.db.host: "${mysqlReporting.host}"
+        warehouse.db.port: "${mysqlReporting.port}"
+        warehouse.db.name: "${mysqlReporting.databaseName}"
+        warehouse.db.user: "${mysqlReporting.user}"
+        warehouse.db.password: "${mysqlReporting.password}"
 
       configuration:
         job:
@@ -43,9 +43,9 @@ configuration:
             key_prefix: "10"
 
     - type: "iterating-job"
-      description: "Refresh Upper Neno Derived MySQL Data"
+      description: "Refresh OpenMRS Derived MySQL Data"
       configuration:
         iterations:
-          - datasourceName: "upperNenoReporting"
+          - datasourceName: "mysqlReporting"
         jobTemplate:
           path: "refresh-derived-mysql-data.yml"
