@@ -3,44 +3,22 @@ description: "Refreshing OpenMRS data"
 configuration:
   jobs:
 
-    - type: "pentaho-job"
+    - type: "iterating-job"
       description: "Execute OpenMRS Pentaho pipeline"
-
-      parameters:
-        pih.pentahoHome: "${petl.jobDir}/pentaho"
-        openmrs.db.host: "${mysqlOpenmrs.host}"
-        openmrs.db.port: "${mysqlOpenmrs.port}"
-        openmrs.db.name: "${mysqlOpenmrs.databaseName}"
-        openmrs.db.user: "${mysqlOpenmrs.user}"
-        openmrs.db.password: "${mysqlOpenmrs.password}"
-        warehouse.db.host: "${mysqlReporting.host}"
-        warehouse.db.port: "${mysqlReporting.port}"
-        warehouse.db.name: "${mysqlReporting.databaseName}"
-        warehouse.db.user: "${mysqlReporting.user}"
-        warehouse.db.password: "${mysqlReporting.password}"
-
       configuration:
-        job:
-          filePath: "pentaho/malawi/jobs/refresh-warehouse.kjb"
-          logLevel: "BASIC"
-        pih:
-          pentahoHome: "${pih.pentahoHome}"
-          country: "malawi"
-        openmrs:
-          db:
-            host: "${openmrs.db.host}"
-            port: "${openmrs.db.port}"
-            name: "${openmrs.db.name}"
-            user: "${openmrs.db.user}"
-            password: "${openmrs.db.password}"
-        warehouse:
-          db:
-            host: "${warehouse.db.host}"
-            port: "${warehouse.db.port}"
-            name: "${warehouse.db.name}"
-            user: "${warehouse.db.user}"
-            password: "${warehouse.db.password}"
-            key_prefix: "10"
+        iterations:
+          #- jobPath: "pentaho/openmrs/create-omrs-schema.kjb"
+          #- jobPath: "pentaho/malawi/jobs/create-schema.kjb"
+          #- jobPath: "pentaho/openmrs/load-from-openmrs.kjb"
+          #- jobPath: "pentaho/openmrs/create-omrs-indexes.kjb"
+          - jobPath: "pentaho/malawi/jobs/load-malawi-data-ART.kjb"
+          - jobPath: "pentaho/malawi/jobs/load-malawi-data-NCD.kjb"
+          - jobPath: "pentaho/malawi/jobs/load-malawi-data-PDC.kjb"
+          - jobPath: "pentaho/malawi/jobs/load-malawi-data-Nutrition.kjb"
+          - jobPath: "pentaho/malawi/jobs/load-malawi-data-POC.kjb"
+          - jobPath: "pentaho/malawi/jobs/load-malawi-data-users.kjb"
+        jobTemplate:
+          path: "execute-pentaho-job.yml"
 
     - type: "iterating-job"
       description: "Refresh OpenMRS Derived MySQL Data"
