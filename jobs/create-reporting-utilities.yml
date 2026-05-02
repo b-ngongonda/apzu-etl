@@ -1,0 +1,78 @@
+# Drops and recreates the reporting utility objects (MySQL functions and
+# stored procedures) used by downstream warehouse loads, in the order listed
+# below. Each iteration runs the type-appropriate DROP statement and then
+# executes the object's body file under jobs/pentaho/malawi/schema/<type>/<name>.sql.
+#
+# Functions and procedures use an empty delimiter so their BEGIN ... END bodies
+# (which contain internal semicolons) are sent to the database as a single
+# statement.
+#
+# Tables are NOT created here — they are managed per-table by
+# refresh-mw-tables.yml (drop, create, load, index).
+type: "iterating-job"
+description: "Create reporting utilities (functions, procedures)"
+configuration:
+  maxConcurrentJobs: 1
+  jobTemplate:
+    path: "drop-and-create.yml"
+  iterations:
+    - { type: "function", name: "first_date_no_breastfeeding", delimiter: "" }
+    - { type: "function", name: "first_test_result_by_date_entered", delimiter: "" }
+    - { type: "function", name: "latest_test_result_by_date_entered", delimiter: "" }
+    - { type: "function", name: "latest_diabetes_htn_visit", delimiter: "" }
+    - { type: "function", name: "latest_asthma_visit", delimiter: "" }
+    - { type: "function", name: "latest_epilepsy_visit", delimiter: "" }
+    - { type: "function", name: "latest_mental_health_visit", delimiter: "" }
+    - { type: "function", name: "latest_test_result_by_sample_date", delimiter: "" }
+    - { type: "function", name: "get_regimen", delimiter: "" }
+    - { type: "function", name: "get_regimen_start", delimiter: "" }
+    - { type: "procedure", name: "create_last_art_outcome_at_facility", delimiter: "" }
+    - { type: "procedure", name: "create_age_groups", delimiter: "" }
+    - { type: "procedure", name: "create_last_art2_outcome_at_facility", delimiter: "" }
+    - { type: "procedure", name: "create_chronic_care_outcome", delimiter: "" }
+    - { type: "procedure", name: "create_changed_regimen_list", delimiter: "" }
+    - { type: "procedure", name: "create_hiv_cohort", delimiter: "" }
+    - { type: "procedure", name: "create_age_groups_for_tpt", delimiter: "" }
+    - { type: "procedure", name: "create_last_eid_outcome", delimiter: "" }
+    - { type: "procedure", name: "create_last_eid_outcome_at_facility", delimiter: "" }
+    - { type: "procedure", name: "create_last_mental_health_outcome", delimiter: "" }
+    - { type: "procedure", name: "create_last_mental_health_outcome_at_facility", delimiter: "" }
+    - { type: "procedure", name: "create_last_mental_program_outcome_at_facility", delimiter: "" }
+    - { type: "procedure", name: "create_last_ncd_outcome_at_facility", delimiter: "" }
+    - { type: "procedure", name: "create_last_ncd_outcome_at_facility_without_location", delimiter: "" }
+    - { type: "procedure", name: "create_last_ncd_outcome_without_mental_at_facility", delimiter: "" }
+    - { type: "procedure", name: "create_last_pdc_outcome_at_facility", delimiter: "" }
+    - { type: "procedure", name: "create_weight_groups", delimiter: "" }
+    - { type: "procedure", name: "create_last_tb2_outcome_at_facility", delimiter: "" }
+    - { type: "procedure", name: "create_last_tb_outcome_at_facility", delimiter: "" }
+    - { type: "procedure", name: "create_pepfar_cohort_disaggregated", delimiter: "" }
+    - { type: "procedure", name: "create_pepfar_cohort_disaggregated_generic", delimiter: "" }
+    - { type: "procedure", name: "create_moh_cohort_disaggregated", delimiter: "" }
+    - { type: "procedure", name: "create_moh_cohort_disaggregated_generic", delimiter: "" }
+    - { type: "procedure", name: "create_moh_tx_new", delimiter: "" }
+    - { type: "procedure", name: "create_moh_tx_new_generic", delimiter: "" }
+    - { type: "procedure", name: "create_moh_tpt_initiation", delimiter: "" }
+    - { type: "procedure", name: "create_moh_tpt_initiation_generic", delimiter: "" }
+    - { type: "procedure", name: "create_pepfar_tx_new", delimiter: "" }
+    - { type: "procedure", name: "create_pepfar_tx_new_generic", delimiter: "" }
+    - { type: "procedure", name: "create_pepfar_tx_tb", delimiter: "" }
+    - { type: "procedure", name: "create_pepfar_tx_tb_generic", delimiter: "" }
+    - { type: "procedure", name: "create_pepfar_tx_tml", delimiter: "" }
+    - { type: "procedure", name: "create_pepfar_tx_tml_generic", delimiter: "" }
+    - { type: "procedure", name: "create_pepfar_tx_hiv_htn", delimiter: "" }
+    - { type: "procedure", name: "create_pepfar_tx_hiv_htn_generic", delimiter: "" }
+    - { type: "procedure", name: "create_survival_analysis", delimiter: "" }
+    - { type: "procedure", name: "create_survival_analysis_option_b", delimiter: "" }
+    - { type: "procedure", name: "create_tb_age_groups", delimiter: "" }
+    - { type: "procedure", name: "create_rpt_identifiers", delimiter: "" }
+    - { type: "procedure", name: "create_rpt_active_eid", delimiter: "" }
+    - { type: "procedure", name: "create_rpt_active_art", delimiter: "" }
+    - { type: "procedure", name: "create_rpt_active_ncd", delimiter: "" }
+    - { type: "procedure", name: "create_rpt_active_pdc", delimiter: "" }
+    - { type: "procedure", name: "create_rpt_priority_patients", delimiter: "" }
+    - { type: "procedure", name: "create_rpt_trace_criteria", delimiter: "" }
+    - { type: "procedure", name: "create_rpt_appt_alerts", delimiter: "" }
+    - { type: "procedure", name: "create_patients_next_appointment", delimiter: "" }
+    - { type: "procedure", name: "create_rpt_patients_expected", delimiter: "" }
+    - { type: "procedure", name: "create_rpt_ic3_data", delimiter: "" }
+    - { type: "procedure", name: "create_rpt_mh_data", delimiter: "" }

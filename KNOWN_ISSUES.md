@@ -1,0 +1,91 @@
+# Known issues
+
+This file tracks suspected bugs and stale code in the ETL pipeline that have
+been noticed but not yet fixed. The intent is to keep them visible until they
+can be triaged into proper tickets.
+
+## Suspected bugs
+
+### `mw_sickle_cell_disease_history_of_hospitalization` is never populated
+
+`jobs/pentaho/malawi/transforms/import-into-mw-sickle-cell-disease-history-of-hospitalization.ktr`
+writes to the table `mw_pdc_history_of_hospitalization`, not the
+`mw_sickle_cell_disease_history_of_hospitalization` table that its filename
+implies.
+
+- The table `mw_sickle_cell_disease_history_of_hospitalization` has a DDL file
+  at `jobs/pentaho/malawi/schema/table/mw_sickle_cell_disease_history_of_hospitalization.sql`,
+  but no transform writes to it — so it is created empty on every refresh.
+- A side effect is that `mw_pdc_history_of_hospitalization` ends up with two
+  writers (the legitimate `import-into-pdc-history-of-hospitalization.ktr`
+  plus this misrouted sickle-cell transform).
+- Introduced in commit `596a04f` (MLW-1616, "add sickle cell disease history
+  of hospitalization table in the data warehouse"). The .sql was added
+  correctly but the .ktr's TableOutput step points at the wrong destination.
+
+The current refactor preserves this behavior unchanged so as not to mix a fix
+with a structural refactor. Resolving it likely means redirecting the
+TableOutput step in the .ktr to its matching table.
+
+### `mw_lab_tests_recent_period.sql` adds an index to the wrong table
+
+`jobs/pentaho/malawi/schema/table/mw_lab_tests_recent_period.sql` ends with:
+
+```sql
+alter table mw_lab_tests add index mw_lab_tests_recent_idx (patient_id);
+```
+
+i.e. it creates the `mw_lab_tests_recent_period` table but then alters the
+unrelated `mw_lab_tests` table — and the index it adds (`patient_id`) is
+already covered by `mw_lab_tests_patient_idx` from `mw_lab_tests.sql`, so it's
+a misnamed duplicate. The `mw_lab_tests_recent_period` table itself is left
+without any indexes.
+
+Likely intent: the index should have been on
+`mw_lab_tests_recent_period(patient_id)`. The current refactor preserves the
+existing (buggy) behavior — the orphan index lives in the `mw_lab_tests`
+index file.
+
+### `mw_patient` was being loaded 6× in the legacy pipeline (now fixed)
+
+In the legacy pipeline (master, pre-MLW-1813), every program-specific job —
+`load-malawi-data-{ART,NCD,PDC,Nutrition,POC,users}.kjb` — had
+`import-into-mw-patient.ktr` as its first step. Because the TableOutput step
+in that transform has `<truncate>N</truncate>`, each invocation appended
+rather than replaced, so `mw_patient` ended up with 6× the actual patient
+count (e.g. 497,130 rows for ~82,855 unique patients).
+
+The MLW-1813 refactor incidentally fixed this: the per-table refresh in
+`jobs/malawi/refresh-mw-tables.yml` drops and creates `mw_patient` once and
+runs `import-into-mw-patient.ktr` exactly once. Row counts now match the
+underlying OpenMRS patient count.
+
+If anyone backports per-table self-contained jobs to a different branch,
+they need to make sure no transform is invoked more than once, or that
+TableOutput truncates before loading.
+
+## Latent inconsistencies
+
+### `get_parent_health_facility` function is referenced but never created
+
+`jobs/pentaho/malawi/schema/function/get_parent_health_facility.sql` exists
+in the schema dir but is not in `jobs/create-reporting-utilities.yml`, so
+the function is never created at runtime.
+
+The procedure `create_changed_regimen_list`
+(`jobs/pentaho/malawi/schema/procedure/create_changed_regimen_list.sql`)
+calls `get_parent_health_facility(...)` in its body. MySQL resolves the
+function lazily (at procedure-call time, not at procedure-create time), so
+the procedure is created without error — but if anything ever invokes
+`create_changed_regimen_list`, MySQL will raise "FUNCTION ... does not
+exist".
+
+Either:
+
+- the function should be added to `jobs/create-reporting-utilities.yml`
+  (if `create_changed_regimen_list` is in active use), or
+- both the function file and the call site should be removed (if the
+  feature is dead).
+
+The right call depends on whether anything in the reporting layer actually
+calls `create_changed_regimen_list`.
