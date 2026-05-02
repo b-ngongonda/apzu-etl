@@ -10,13 +10,7 @@
   <created_date>2016/10/24 16:40:00.548</created_date>
   <modified_user>-</modified_user>
   <modified_date>2016/10/24 16:40:00.548</modified_date>
-  <parameters>
-    <parameter>
-      <name>pih.country</name>
-      <default_value>malawi</default_value>
-      <description/>
-    </parameter>
-  </parameters>
+  <parameters>  </parameters>
   <slaveservers>
     </slaveservers>
   <job-log-table>
@@ -312,43 +306,6 @@
       <nr>0</nr>
       <xloc>64</xloc>
       <yloc>112</yloc>
-      <attributes_kjc/>
-    </entry>
-    <entry>
-      <name>Load Configuration</name>
-      <description/>
-      <type>JOB</type>
-      <attributes/>
-      <specification_method>filename</specification_method>
-      <job_object_id/>
-      <filename>${PIH_PENTAHO_HOME}/openmrs/load-configuration.kjb</filename>
-      <jobname/>
-      <directory/>
-      <arg_from_previous>N</arg_from_previous>
-      <params_from_previous>N</params_from_previous>
-      <exec_per_row>N</exec_per_row>
-      <set_logfile>N</set_logfile>
-      <logfile/>
-      <logext/>
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <loglevel>Nothing</loglevel>
-      <slave_server_name/>
-      <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
-      <expand_remote_job>N</expand_remote_job>
-      <create_parent_folder>N</create_parent_folder>
-      <pass_export>N</pass_export>
-      <run_configuration>Pentaho local</run_configuration>
-      <parameters>
-        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>
-      <set_append_logfile>N</set_append_logfile>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>64</xloc>
-      <yloc>224</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
@@ -697,7 +654,7 @@
   <hops>
     <hop>
       <from>START</from>
-      <to>Load Configuration</to>
+      <to>Load Patients</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -772,15 +729,6 @@
       <to>Load Nutrition Infant followup</to>
       <from_nr>2</from_nr>
       <to_nr>2</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Load Configuration</from>
-      <to>Load Patients</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>

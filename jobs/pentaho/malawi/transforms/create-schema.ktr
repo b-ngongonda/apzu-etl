@@ -282,7 +282,7 @@
       </field>
       <field>
         <name>country</name>
-        <variable>${pih.country}</variable>
+        <variable>malawi</variable>
         <type>String</type>
         <format/>
         <currency/>

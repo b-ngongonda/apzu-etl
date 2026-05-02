@@ -20,7 +20,6 @@ configuration:
     logLevel: "BASIC"
   pih:
     pentahoHome: "${pih.pentahoHome}"
-    country: "malawi"
   openmrs:
     db:
       host: "${openmrs.db.host}"
@@ -35,4 +34,3 @@ configuration:
       name: "${warehouse.db.name}"
       user: "${warehouse.db.user}"
       password: "${warehouse.db.password}"
-      key_prefix: ""

@@ -140,42 +140,12 @@
   <hop> <from>Import Patient Program</from><to>Lookup Location</to><enabled>Y</enabled> </hop>
   <hop> <from>Lookup Location</from><to>Lookup Program Concept</to><enabled>Y</enabled> </hop>
   <hop> <from>Lookup Program Concept</from><to>Lookup Outcome Concept</to><enabled>Y</enabled> </hop>
-  <hop> <from>Get ID Prefix</from><to>Prefix IDs</to><enabled>Y</enabled> </hop>
-  <hop> <from>Lookup Outcome Concept</from><to>Get ID Prefix</to><enabled>Y</enabled> </hop>
-  <hop> <from>Prefix IDs</from><to>Write Program Enrollment Table</to><enabled>Y</enabled> </hop>
+    <hop>
+      <from>Lookup Outcome Concept</from>
+      <to>Write Program Enrollment Table</to>
+      <enabled>Y</enabled>
+    </hop>
   </order>
-  <step>
-    <name>Get ID Prefix</name>
-    <type>GetVariable</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <fields>
-      <field>
-        <name>id_prefix</name>
-        <variable>${warehouse.db.key_prefix}</variable>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>896</xloc>
-      <yloc>112</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
 
   <step>
     <name>Import Patient Program</name>
@@ -324,42 +294,6 @@
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>496</xloc>
-      <yloc>112</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Prefix IDs</name>
-    <type>ScriptValueMod</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <compatible>N</compatible>
-    <optimizationLevel>9</optimizationLevel>
-    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
-        <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>var prefixed_enrollment_id &#x3d; id_prefix &#x2b; program_enrollment_id&#x3b;&#xa;var prefixed_patient_id &#x3d; id_prefix &#x2b; patient_id&#x3b;</jsScript_script>
-      </jsScript>    </jsScripts>    <fields>      <field>        <name>prefixed_patient_id</name>
-        <rename>patient_id</rename>
-        <type>Integer</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>Y</replace>
-      </field>      <field>        <name>prefixed_enrollment_id</name>
-        <rename>program_enrollment_id</rename>
-        <type>Integer</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>Y</replace>
-      </field>    </fields>     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1024</xloc>
       <yloc>112</yloc>
       <draw>Y</draw>
       </GUI>

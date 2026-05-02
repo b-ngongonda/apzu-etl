@@ -656,65 +656,16 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Get ID Prefix</from>
-      <to>Prefix Patient ID</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Patient Attribute Merge</from>
-      <to>Get ID Prefix</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Prefix Patient ID</from>
-      <to>Exclude test patients</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>Exclude test patients</from>
       <to>Write Patient Table</to>
       <enabled>Y</enabled>
     </hop>
+    <hop>
+      <from>Patient Attribute Merge</from>
+      <to>Exclude test patients</to>
+      <enabled>Y</enabled>
+    </hop>
   </order>
-  <step>
-    <name>Get ID Prefix</name>
-    <type>GetVariable</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <fields>
-      <field>
-        <name>id_prefix</name>
-        <variable>${warehouse.db.key_prefix}</variable>
-        <type>String</type>
-        <format />
-        <currency />
-        <decimal />
-        <group />
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-    </fields>
-    <attributes />
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>208</xloc>
-      <yloc>752</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
   <step>
     <name>Import Patient</name>
     <type>TableInput</type>
@@ -1190,52 +1141,6 @@ order by 	p.uuid</sql>
     </GUI>
   </step>
   <step>
-    <name>Prefix Patient ID</name>
-    <type>ScriptValueMod</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <compatible>N</compatible>
-    <optimizationLevel>9</optimizationLevel>
-    <jsScripts>
-      <jsScript>
-        <jsScript_type>0</jsScript_type>
-        <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>var prefixed_person_id = id_prefix + patient_id;
-
-</jsScript_script>
-      </jsScript>
-    </jsScripts>
-    <fields>
-      <field>
-        <name>prefixed_person_id</name>
-        <rename>patient_id</rename>
-        <type>Integer</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>Y</replace>
-      </field>
-    </fields>
-    <attributes />
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>416</xloc>
-      <yloc>752</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
     <name>Row denormaliser</name>
     <type>Denormaliser</type>
     <description />
@@ -1255,7 +1160,7 @@ order by 	p.uuid</sql>
     <fields>
       <field>
         <field_name>value</field_name>
-        <key_value>${patient.attributeType.phoneNumber}</key_value>
+        <key_value>Cell Phone Number</key_value>
         <target_name>phone_number</target_name>
         <target_type>String</target_type>
         <target_format />
@@ -1269,7 +1174,7 @@ order by 	p.uuid</sql>
       </field>
       <field>
         <field_name>value</field_name>
-        <key_value>${patient.attributeType.mothersName}</key_value>
+        <key_value>Mother&#39;s Name</key_value>
         <target_name>mothers_name</target_name>
         <target_type>String</target_type>
         <target_format />
@@ -1283,21 +1188,7 @@ order by 	p.uuid</sql>
       </field>
       <field>
         <field_name>value</field_name>
-        <key_value>${patient.attributeType.fathersName}</key_value>
-        <target_name>fathers_name</target_name>
-        <target_type>String</target_type>
-        <target_format />
-        <target_length>-1</target_length>
-        <target_precision>-1</target_precision>
-        <target_decimal_symbol />
-        <target_grouping_symbol />
-        <target_currency_symbol />
-        <target_null_string />
-        <target_aggregation_type>-</target_aggregation_type>
-      </field>
-      <field>
-        <field_name>value</field_name>
-        <key_value>${patient.attributeType.healthCenter}</key_value>
+        <key_value>Health Center</key_value>
         <target_name>health_center_id</target_name>
         <target_type>Integer</target_type>
         <target_format />
@@ -1311,7 +1202,7 @@ order by 	p.uuid</sql>
       </field>
       <field>
         <field_name>value</field_name>
-        <key_value>${patient.attributeType.testPatient}</key_value>
+        <key_value>Test Patient</key_value>
         <target_name>test_patient</target_name>
         <target_type>Boolean</target_type>
         <target_format />
@@ -1360,10 +1251,6 @@ order by 	p.uuid</sql>
       </field>
       <field>
         <name>mothers_name</name>
-        <rename />
-      </field>
-      <field>
-        <name>fathers_name</name>
         <rename />
       </field>
       <field>
@@ -1526,10 +1413,6 @@ order by 	p.uuid</sql>
       <field>
         <column_name>mothers_name</column_name>
         <stream_name>mothers_name</stream_name>
-      </field>
-      <field>
-        <column_name>fathers_name</column_name>
-        <stream_name>fathers_name</stream_name>
       </field>
       <field>
         <column_name>health_center</column_name>

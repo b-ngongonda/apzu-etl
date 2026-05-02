@@ -126,17 +126,14 @@ Pentaho jobs and transforms.
 * Extract the mysql connector jar out of the above zip file and copy it into the data-integration/lib folder
 * Create a new mysql database for the warehouse ( eg. _create database openmrs_warehouse default charset utf8;_ )
 * Checkout out jobs (this repository).  Make note of the location where this is located.
-* Edit or create ~/.kettle/kettle.properties, and add the following: PIH_PENTAHO_HOME=/checked/out/folder/jobs/pentaho
-* Create file at ~/.kettle/pih-kettle.properties with the following variables set to your preferred values:
+* Edit or create ~/.kettle/kettle.properties with the following variables set to your preferred values:
 
-** A sample of what this should look like is in pih-pentaho/config/pih-kettle-default.properties
-** Connection settings are there for configuring the source and target databases
-** pih.country should be set to the country of interest, and controls certain configurations within the main jobs and transforms
-** warehouse.db.key_prefix by default will be 100 unless you override it here.  This is a prefix that is appended to all primary keys for data that is imported.
-** Sample for Haiti below:
+** PIH_PENTAHO_HOME points at this checkout's `jobs/pentaho` directory
+** The remaining variables configure the source and target databases — these are auto-supplied by PETL at runtime, but Spoon needs them for local development.
+** Sample below:
 
 ```
-pih.country  = malawi
+PIH_PENTAHO_HOME = /checked/out/folder/jobs/pentaho
 
 openmrs.db.host = localhost
 openmrs.db.port = 3306
@@ -149,7 +146,6 @@ warehouse.db.port = 3306
 warehouse.db.name = openmrs_warehouse
 warehouse.db.user = root
 warehouse.db.password = rootpw
-warehouse.db.key_prefix = 10
 ```
 
 * Run "spoon.sh" to start

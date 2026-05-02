@@ -142,78 +142,17 @@
   <hop> <from>Import Relationship B</from><to>Relationship B Merge</to><enabled>Y</enabled> </hop>
   <hop> <from>Import Relationship A</from><to>Relationship A Merge</to><enabled>Y</enabled> </hop>
   <hop> <from>Import Person A Name Lookup</from><to>Relationship A Merge</to><enabled>Y</enabled> </hop>
-  <hop> <from>Get ID Prefix</from><to>Prefix IDs</to><enabled>Y</enabled> </hop>
-  <hop> <from>Relationship A Merge</from><to>Get ID Prefix</to><enabled>Y</enabled> </hop>
-  <hop> <from>Prefix IDs</from><to>Write Relationship A</to><enabled>Y</enabled> </hop>
-  <hop> <from>Get ID Prefix 2</from><to>Prefix IDs 2</to><enabled>Y</enabled> </hop>
-  <hop> <from>Relationship B Merge</from><to>Get ID Prefix 2</to><enabled>Y</enabled> </hop>
-  <hop> <from>Prefix IDs 2</from><to>Write Relationship B</to><enabled>Y</enabled> </hop>
+    <hop>
+      <from>Relationship A Merge</from>
+      <to>Write Relationship A</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Relationship B Merge</from>
+      <to>Write Relationship B</to>
+      <enabled>Y</enabled>
+    </hop>
   </order>
-  <step>
-    <name>Get ID Prefix</name>
-    <type>GetVariable</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <fields>
-      <field>
-        <name>id_prefix</name>
-        <variable>${warehouse.db.key_prefix}</variable>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>656</xloc>
-      <yloc>224</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Get ID Prefix 2</name>
-    <type>GetVariable</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <fields>
-      <field>
-        <name>id_prefix</name>
-        <variable>${warehouse.db.key_prefix}</variable>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>656</xloc>
-      <yloc>480</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
 
   <step>
     <name>Import Person A Name Lookup</name>
@@ -315,78 +254,6 @@
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>224</xloc>
       <yloc>384</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Prefix IDs</name>
-    <type>ScriptValueMod</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <compatible>N</compatible>
-    <optimizationLevel>9</optimizationLevel>
-    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
-        <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>var prefixed_relationship_id &#x3d; id_prefix &#x2b; relationship_id&#x3b;&#xa;var prefixed_patient_id &#x3d; id_prefix &#x2b; patient_id&#x3b;</jsScript_script>
-      </jsScript>    </jsScripts>    <fields>      <field>        <name>prefixed_relationship_id</name>
-        <rename>relationship_id</rename>
-        <type>Integer</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>Y</replace>
-      </field>      <field>        <name>prefixed_patient_id</name>
-        <rename>patient_id</rename>
-        <type>Integer</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>Y</replace>
-      </field>    </fields>     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>848</xloc>
-      <yloc>224</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Prefix IDs 2</name>
-    <type>ScriptValueMod</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <compatible>N</compatible>
-    <optimizationLevel>9</optimizationLevel>
-    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
-        <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>var prefixed_relationship_id &#x3d; id_prefix &#x2b; relationship_id&#x3b;&#xa;var prefixed_patient_id &#x3d; id_prefix &#x2b; patient_id&#x3b;</jsScript_script>
-      </jsScript>    </jsScripts>    <fields>      <field>        <name>prefixed_relationship_id</name>
-        <rename>relationship_id</rename>
-        <type>Integer</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>Y</replace>
-      </field>      <field>        <name>prefixed_patient_id</name>
-        <rename>patient_id</rename>
-        <type>Integer</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>Y</replace>
-      </field>    </fields>     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>848</xloc>
-      <yloc>480</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

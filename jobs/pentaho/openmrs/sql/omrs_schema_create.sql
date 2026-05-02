@@ -31,7 +31,6 @@ CREATE TABLE omrs_patient (
   age_months_at_death INT,
   cause_of_death VARCHAR(255),
   mothers_name VARCHAR(50),
-  fathers_name VARCHAR(50),
   health_center VARCHAR(255),
   date_created DATE
 );
