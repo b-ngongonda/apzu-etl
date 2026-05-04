@@ -11,18 +11,13 @@
 #
 # Functions and procedures must already exist when this runs (transforms call
 # them); they are created upstream by create-reporting-utilities.yml.
-#
-# Special cases — handled as inline job-pipelines at the position of their
-# first occurrence in legacy load order:
-#   * mw_lab_tests is loaded by two transforms (HIV + viral-load).
 type: "job-pipeline"
 description: "Refresh Malawi mw_* warehouse tables"
 configuration:
   jobs:
 
-    # --- Chunk 1: standard 1:1 table refreshes ---
     - type: "iterating-job"
-      description: "Refresh standard mw_* tables (chunk 1)"
+      description: "Refresh standard mw_* tables"
       parameters:
         schemaDir: "pentaho/malawi/schema"
       configuration:
@@ -32,68 +27,8 @@ configuration:
         iterations:
           - { tableName: "mw_patient", jobPath: "pentaho/malawi/transforms/import-into-mw-patient.ktr" }
           - { tableName: "mw_ncd_diagnoses", jobPath: "pentaho/malawi/transforms/import-into-mw-ncd-diagnoses.ktr" }
-
-    # --- Multi-loader: mw_lab_tests ---
-    - type: "job-pipeline"
-      description: "Refresh mw_lab_tests"
-      configuration:
-        jobs:
-          - type: "sql-execution"
-            description: "Drop mw_lab_tests"
-            parameters:
-              type: "table"
-              name: "mw_lab_tests"
-            configuration:
-              datasource: "mysqlReporting.yml"
-              delimiter: ";"
-              scripts:
-                - "sql/drop-schema-object.sql"
-          - type: "sql-execution"
-            description: "Create mw_lab_tests"
-            configuration:
-              datasource: "mysqlReporting.yml"
-              delimiter: ";"
-              scripts:
-                - "pentaho/malawi/schema/table/mw_lab_tests.sql"
-          - type: "iterating-job"
-            description: "Load mw_lab_tests"
-            configuration:
-              maxConcurrentJobs: 1
-              jobTemplate:
-                path: "execute-pentaho-job.yml"
-              iterations:
-                - jobPath: "pentaho/malawi/transforms/import-lab-tests-hiv.ktr"
-                - jobPath: "pentaho/malawi/transforms/import-lab-tests-viral-load.ktr"
-          - type: "sql-execution"
-            description: "Index mw_lab_tests"
-            configuration:
-              datasource: "mysqlReporting.yml"
-              delimiter: ";"
-              scripts:
-                - "pentaho/malawi/schema/index/mw_lab_tests.sql"
-
-    # --- Chunk 2: standard 1:1 table refreshes ---
-    - type: "iterating-job"
-      description: "Refresh standard mw_* tables (chunk 2)"
-      parameters:
-        schemaDir: "pentaho/malawi/schema"
-      configuration:
-        maxConcurrentJobs: 1
-        jobTemplate:
-          path: "refresh-warehouse-table.yml"
-        iterations:
+          - { tableName: "mw_lab_tests", jobPath: "pentaho/malawi/transforms/import-into-mw-lab-tests.ktr" }
           - { tableName: "mw_pre_art_visits", jobPath: "pentaho/malawi/transforms/import-into-mw-pre-art-visits.ktr" }
-
-    # --- Chunk 3: standard 1:1 table refreshes ---
-    - type: "iterating-job"
-      description: "Refresh standard mw_* tables (chunk 3)"
-      parameters:
-        schemaDir: "pentaho/malawi/schema"
-      configuration:
-        maxConcurrentJobs: 1
-        jobTemplate:
-          path: "refresh-warehouse-table.yml"
-        iterations:
           - { tableName: "mw_art_regimen", jobPath: "pentaho/malawi/transforms/art-regimen.ktr" }
           - { tableName: "mw_pdc_initial", jobPath: "pentaho/malawi/transforms/import-into-pdc-initial.ktr" }
           - { tableName: "mw_nutrition_adult_initial", jobPath: "pentaho/malawi/transforms/import-into-mw-nutrition-adult-initial.ktr" }
