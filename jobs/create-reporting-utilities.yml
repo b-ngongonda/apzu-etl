@@ -24,6 +24,7 @@ configuration:
     - { type: "function", name: "latest_epilepsy_visit", delimiter: "" }
     - { type: "function", name: "latest_mental_health_visit", delimiter: "" }
     - { type: "function", name: "latest_test_result_by_sample_date", delimiter: "" }
+    - { type: "function", name: "get_parent_health_facility", delimiter: "" }
     - { type: "function", name: "get_regimen", delimiter: "" }
     - { type: "function", name: "get_regimen_start", delimiter: "" }
     - { type: "procedure", name: "create_last_art_outcome_at_facility", delimiter: "" }
