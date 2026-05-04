@@ -4,47 +4,6 @@ This file tracks suspected bugs and stale code in the ETL pipeline that have
 been noticed but not yet fixed. The intent is to keep them visible until they
 can be triaged into proper tickets.
 
-## Suspected bugs
-
-### `mw_sickle_cell_disease_history_of_hospitalization` is never populated
-
-`jobs/pentaho/malawi/transforms/import-into-mw-sickle-cell-disease-history-of-hospitalization.ktr`
-writes to the table `mw_pdc_history_of_hospitalization`, not the
-`mw_sickle_cell_disease_history_of_hospitalization` table that its filename
-implies.
-
-- The table `mw_sickle_cell_disease_history_of_hospitalization` has a DDL file
-  at `jobs/pentaho/malawi/schema/table/mw_sickle_cell_disease_history_of_hospitalization.sql`,
-  but no transform writes to it — so it is created empty on every refresh.
-- A side effect is that `mw_pdc_history_of_hospitalization` ends up with two
-  writers (the legitimate `import-into-pdc-history-of-hospitalization.ktr`
-  plus this misrouted sickle-cell transform).
-- Introduced in commit `596a04f` (MLW-1616, "add sickle cell disease history
-  of hospitalization table in the data warehouse"). The .sql was added
-  correctly but the .ktr's TableOutput step points at the wrong destination.
-
-The current refactor preserves this behavior unchanged so as not to mix a fix
-with a structural refactor. Resolving it likely means redirecting the
-TableOutput step in the .ktr to its matching table.
-
-### `mw_patient` was being loaded 6× in the legacy pipeline (now fixed)
-
-In the legacy pipeline (master, pre-MLW-1813), every program-specific job —
-`load-malawi-data-{ART,NCD,PDC,Nutrition,POC,users}.kjb` — had
-`import-into-mw-patient.ktr` as its first step. Because the TableOutput step
-in that transform has `<truncate>N</truncate>`, each invocation appended
-rather than replaced, so `mw_patient` ended up with 6× the actual patient
-count (e.g. 497,130 rows for ~82,855 unique patients).
-
-The MLW-1813 refactor incidentally fixed this: the per-table refresh in
-`jobs/malawi/refresh-mw-tables.yml` drops and creates `mw_patient` once and
-runs `import-into-mw-patient.ktr` exactly once. Row counts now match the
-underlying OpenMRS patient count.
-
-If anyone backports per-table self-contained jobs to a different branch,
-they need to make sure no transform is invoked more than once, or that
-TableOutput truncates before loading.
-
 ## Latent inconsistencies
 
 ### `get_parent_health_facility` function is referenced but never created
