@@ -19,86 +19,86 @@ configuration:
     - type: "iterating-job"
       description: "Refresh standard mw_* tables"
       parameters:
-        schemaDir: "pentaho/malawi/schema"
+        baseDir: "pentaho/malawi"
       configuration:
         maxConcurrentJobs: 1
         jobTemplate:
           path: "refresh-warehouse-table.yml"
         iterations:
-          - { tableName: "mw_patient", jobPath: "pentaho/malawi/transforms/import-into-mw-patient.ktr" }
-          - { tableName: "mw_ncd_diagnoses", jobPath: "pentaho/malawi/transforms/import-into-mw-ncd-diagnoses.ktr" }
-          - { tableName: "mw_lab_tests", jobPath: "pentaho/malawi/transforms/import-into-mw-lab-tests.ktr" }
-          - { tableName: "mw_pre_art_visits", jobPath: "pentaho/malawi/transforms/import-into-mw-pre-art-visits.ktr" }
-          - { tableName: "mw_art_regimen", jobPath: "pentaho/malawi/transforms/art-regimen.ktr" }
-          - { tableName: "mw_pdc_initial", jobPath: "pentaho/malawi/transforms/import-into-pdc-initial.ktr" }
-          - { tableName: "mw_nutrition_adult_initial", jobPath: "pentaho/malawi/transforms/import-into-mw-nutrition-adult-initial.ktr" }
-          - { tableName: "mw_users", jobPath: "pentaho/malawi/transforms/import-into-mw-users.ktr" }
-          - { tableName: "mw_poc_checkin", jobPath: "pentaho/malawi/transforms/import-into-mw-poc-checkin.ktr" }
-          - { tableName: "mw_ncd_visits", jobPath: "pentaho/malawi/transforms/import-into-mw-ncd-visits.ktr" }
-          - { tableName: "mw_eid_visits", jobPath: "pentaho/malawi/transforms/import-into-mw-eid-visits.ktr" }
-          - { tableName: "mw_art_visits", jobPath: "pentaho/malawi/transforms/import-into-mw-art-visits.ktr" }
-          - { tableName: "mw_pre_art_register", jobPath: "pentaho/malawi/transforms/import-into-mw-pre-art-register.ktr" }
-          - { tableName: "mw_pdc_trisomy_21_followup", jobPath: "pentaho/malawi/transforms/import-into-pdc-trisomy-21-visits.ktr" }
-          - { tableName: "mw_nutrition_adult_followup", jobPath: "pentaho/malawi/transforms/import-into-mw-nutrition-adult-followup.ktr" }
-          - { tableName: "mw_poc_bp", jobPath: "pentaho/malawi/transforms/import-into-mw-poc-bp-screening.ktr" }
-          - { tableName: "mw_ncd_register", jobPath: "pentaho/malawi/transforms/import-into-mw-ncd-register.ktr" }
-          - { tableName: "mw_eid_register", jobPath: "pentaho/malawi/transforms/import-into-mw-eid-register.ktr" }
-          - { tableName: "mw_art_register", jobPath: "pentaho/malawi/transforms/import-into-mw-art-register.ktr" }
-          - { tableName: "mw_pdc_developmental_delay_followup", jobPath: "pentaho/malawi/transforms/import-into-pdc-developmental-delay-visit.ktr" }
-          - { tableName: "mw_nutrition_pdc_initial", jobPath: "pentaho/malawi/transforms/import-into-mw-nutrition-pdc-initial.ktr" }
-          - { tableName: "mw_poc_cervical_cancer", jobPath: "pentaho/malawi/transforms/import-into-mw-poc-cervical-cancer.ktr" }
-          - { tableName: "mw_diabetes_hypertension_initial", jobPath: "pentaho/malawi/transforms/import-into-mw-diabetes-hypertension-initial.ktr" }
-          - { tableName: "mw_eid_lab_tests", jobPath: "pentaho/malawi/transforms/import-into-mw-eid-lab-test.ktr" }
-          - { tableName: "mw_art_initial", jobPath: "pentaho/malawi/transforms/import-into-mw-art-initial.ktr" }
-          - { tableName: "mw_pdc_other_diagnosis_followup", jobPath: "pentaho/malawi/transforms/import-into-pdc-other-diagnosis-visits.ktr" }
-          - { tableName: "mw_nutrition_pdc_followup", jobPath: "pentaho/malawi/transforms/import-into-mw-nutrition-pdc-followup.ktr" }
-          - { tableName: "mw_poc_clinical_plan", jobPath: "pentaho/malawi/transforms/import-into-mw-poc-clinical-plan.ktr" }
-          - { tableName: "mw_diabetes_hypertension_followup", jobPath: "pentaho/malawi/transforms/import-into-mw-diabetes-hypertension-followup.ktr" }
-          - { tableName: "mw_art_followup", jobPath: "pentaho/malawi/transforms/import-into-mw-art-followup.ktr" }
-          - { tableName: "mw_pdc_history_of_hospitalization", jobPath: "pentaho/malawi/transforms/import-into-pdc-history-of-hospitalization.ktr" }
-          - { tableName: "mw_nutrition_teen_initial", jobPath: "pentaho/malawi/transforms/import-into-mw-nutrition-teen-initial.ktr" }
-          - { tableName: "mw_poc_eid", jobPath: "pentaho/malawi/transforms/import-into-mw-poc-eid.ktr" }
-          - { tableName: "mw_asthma_initial", jobPath: "pentaho/malawi/transforms/import-into-mw-asthma-initial.ktr" }
-          - { tableName: "mw_eid_initial", jobPath: "pentaho/malawi/transforms/import-into-mw-eid-initial.ktr" }
-          - { tableName: "mw_pdc_cleft_lip_palate_followup", jobPath: "pentaho/malawi/transforms/import-into-pdc-cleft-lip-palate-visits.ktr" }
-          - { tableName: "mw_nutrition_teen_followup", jobPath: "pentaho/malawi/transforms/import-into-mw-nutrition-teen-followup.ktr" }
-          - { tableName: "mw_poc_htc", jobPath: "pentaho/malawi/transforms/import-into-mw-poc-htc.ktr" }
-          - { tableName: "mw_chf_initial", jobPath: "pentaho/malawi/transforms/import-into-mw-chf-initial.ktr" }
-          - { tableName: "mw_eid_followup", jobPath: "pentaho/malawi/transforms/import-into-mw-eid-followup.ktr" }
-          - { tableName: "mw_pdc_diagnoses", jobPath: "pentaho/malawi/transforms/import-into-pdc-diagnoses.ktr" }
-          - { tableName: "mw_nutrition_infant_initial", jobPath: "pentaho/malawi/transforms/import-into-mw-nutrition-infant-initial.ktr" }
-          - { tableName: "mw_poc_nutrition", jobPath: "pentaho/malawi/transforms/import-into-mw-poc-nutrition.ktr" }
-          - { tableName: "mw_chf_followup", jobPath: "pentaho/malawi/transforms/import-into-mw-chf-followup.ktr" }
-          - { tableName: "mw_art_viral_load", jobPath: "pentaho/malawi/transforms/import-into-art-viral-load.ktr" }
-          - { tableName: "mw_pdc_vision_test", jobPath: "pentaho/malawi/transforms/import-into-pdc-vision-test.ktr" }
-          - { tableName: "mw_nutrition_infant_followup", jobPath: "pentaho/malawi/transforms/import-into-mw-nutrition-infant-followup.ktr" }
-          - { tableName: "mw_poc_adherence_counseling", jobPath: "pentaho/malawi/transforms/import-into-mw-poc-adherence-counseling.ktr" }
-          - { tableName: "mw_ckd_initial", jobPath: "pentaho/malawi/transforms/import-into-mw-ckd-initial.ktr" }
-          - { tableName: "mw_art_followup_testing", jobPath: "pentaho/malawi/transforms/import-into-mw-art-followup-testing.ktr" }
-          - { tableName: "mw_pdc_radiology", jobPath: "pentaho/malawi/transforms/import-into-pdc-radiology.ktr" }
-          - { tableName: "mw_teen_club_followup", jobPath: "pentaho/malawi/transforms/import-into-mw-teen-club-followup.ktr" }
-          - { tableName: "mw_poc_tb_screening", jobPath: "pentaho/malawi/transforms/import-into-mw-poc-tb-screening.ktr" }
-          - { tableName: "mw_ckd_followup", jobPath: "pentaho/malawi/transforms/import-into-mw-ckd-followup.ktr" }
-          - { tableName: "mw_tb_initial", jobPath: "pentaho/malawi/transforms/import-into-mw-tb-initial.ktr" }
-          - { tableName: "mw_pdc_complications", jobPath: "pentaho/malawi/transforms/import-into-pdc-complications.ktr" }
-          - { tableName: "mw_poc_viral_load_screening", jobPath: "pentaho/malawi/transforms/import-into-mw-poc-viral-load-screening.ktr" }
-          - { tableName: "mw_epilepsy_initial", jobPath: "pentaho/malawi/transforms/import-into-mw-epilepsy-initial.ktr" }
-          - { tableName: "mw_tb_followup", jobPath: "pentaho/malawi/transforms/import-into-mw-tb-followup.ktr" }
-          - { tableName: "mw_pdc_hearing_test", jobPath: "pentaho/malawi/transforms/import-into-pdc-hearing_test.ktr" }
-          - { tableName: "mw_poc", jobPath: "pentaho/malawi/transforms/import-into-mw-poc.ktr" }
-          - { tableName: "mw_epilepsy_followup", jobPath: "pentaho/malawi/transforms/import-into-mw-epilepsy-followup.ktr" }
-          - { tableName: "mw_tb_post_lung_disease", jobPath: "pentaho/malawi/transforms/import-into-mw-tb-post-lung-disease.ktr" }
-          - { tableName: "mw_pdc_visits", jobPath: "pentaho/malawi/transforms/import-into-pdc-visits.ktr" }
-          - { tableName: "mw_teen_club_intake_survey", jobPath: "pentaho/malawi/transforms/import-into-mw-teen-club-intake-survey.ktr" }
-          - { tableName: "mw_mental_health_initial", jobPath: "pentaho/malawi/transforms/import-into-mental-health-initial.ktr" }
-          - { tableName: "mw_tb_test_results", jobPath: "pentaho/malawi/transforms/import-into-mw-tb-test-results.ktr" }
-          - { tableName: "mw_pdc_register", jobPath: "pentaho/malawi/transforms/import-into-mw-pdc-register.ktr" }
-          - { tableName: "mw_mental_health_followup", jobPath: "pentaho/malawi/transforms/import-into-mw-mental-health-followup.ktr" }
-          - { tableName: "mw_ncd_other_initial", jobPath: "pentaho/malawi/transforms/import-into-mw-ncd-other-initial.ktr" }
-          - { tableName: "mw_ncd_other_followup", jobPath: "pentaho/malawi/transforms/import-into-mw-ncd-other-followup.ktr" }
-          - { tableName: "mw_asthma_followup", jobPath: "pentaho/malawi/transforms/import-into-mw-asthma-followup.ktr" }
-          - { tableName: "mw_diabetes_hypertension_annual_lab_tests", jobPath: "pentaho/malawi/transforms/import-into-mw-diabetes-hypertension-annual-lab-tests.ktr" }
-          - { tableName: "mw_sickle_cell_disease_initial", jobPath: "pentaho/malawi/transforms/import-into-mw-sickle-cell-disease-initial.ktr" }
-          - { tableName: "mw_sickle_cell_disease_quarterly_screening", jobPath: "pentaho/malawi/transforms/import-into-mw-sickle-cell-disease-quarterly-screening.ktr" }
-          - { tableName: "mw_sickle_cell_disease_annual_screening", jobPath: "pentaho/malawi/transforms/import-into-mw-sickle-cell-disease-annual-screening.ktr" }
-          - { tableName: "mw_sickle_cell_disease_followup", jobPath: "pentaho/malawi/transforms/import-into-mw-sickle-cell-disease-followup.ktr" }
+          - { tableName: "mw_patient" }
+          - { tableName: "mw_ncd_diagnoses" }
+          - { tableName: "mw_lab_tests" }
+          - { tableName: "mw_pre_art_visits" }
+          - { tableName: "mw_art_regimen" }
+          - { tableName: "mw_pdc_initial" }
+          - { tableName: "mw_nutrition_adult_initial" }
+          - { tableName: "mw_users" }
+          - { tableName: "mw_poc_checkin" }
+          - { tableName: "mw_ncd_visits" }
+          - { tableName: "mw_eid_visits" }
+          - { tableName: "mw_art_visits" }
+          - { tableName: "mw_pre_art_register" }
+          - { tableName: "mw_pdc_trisomy_21_followup" }
+          - { tableName: "mw_nutrition_adult_followup" }
+          - { tableName: "mw_poc_bp" }
+          - { tableName: "mw_ncd_register" }
+          - { tableName: "mw_eid_register" }
+          - { tableName: "mw_art_register" }
+          - { tableName: "mw_pdc_developmental_delay_followup" }
+          - { tableName: "mw_nutrition_pdc_initial" }
+          - { tableName: "mw_poc_cervical_cancer" }
+          - { tableName: "mw_diabetes_hypertension_initial" }
+          - { tableName: "mw_eid_lab_tests" }
+          - { tableName: "mw_art_initial" }
+          - { tableName: "mw_pdc_other_diagnosis_followup" }
+          - { tableName: "mw_nutrition_pdc_followup" }
+          - { tableName: "mw_poc_clinical_plan" }
+          - { tableName: "mw_diabetes_hypertension_followup" }
+          - { tableName: "mw_art_followup" }
+          - { tableName: "mw_pdc_history_of_hospitalization" }
+          - { tableName: "mw_nutrition_teen_initial" }
+          - { tableName: "mw_poc_eid" }
+          - { tableName: "mw_asthma_initial" }
+          - { tableName: "mw_eid_initial" }
+          - { tableName: "mw_pdc_cleft_lip_palate_followup" }
+          - { tableName: "mw_nutrition_teen_followup" }
+          - { tableName: "mw_poc_htc" }
+          - { tableName: "mw_chf_initial" }
+          - { tableName: "mw_eid_followup" }
+          - { tableName: "mw_pdc_diagnoses" }
+          - { tableName: "mw_nutrition_infant_initial" }
+          - { tableName: "mw_poc_nutrition" }
+          - { tableName: "mw_chf_followup" }
+          - { tableName: "mw_art_viral_load" }
+          - { tableName: "mw_pdc_vision_test" }
+          - { tableName: "mw_nutrition_infant_followup" }
+          - { tableName: "mw_poc_adherence_counseling" }
+          - { tableName: "mw_ckd_initial" }
+          - { tableName: "mw_art_followup_testing" }
+          - { tableName: "mw_pdc_radiology" }
+          - { tableName: "mw_teen_club_followup" }
+          - { tableName: "mw_poc_tb_screening" }
+          - { tableName: "mw_ckd_followup" }
+          - { tableName: "mw_tb_initial" }
+          - { tableName: "mw_pdc_complications" }
+          - { tableName: "mw_poc_viral_load_screening" }
+          - { tableName: "mw_epilepsy_initial" }
+          - { tableName: "mw_tb_followup" }
+          - { tableName: "mw_pdc_hearing_test" }
+          - { tableName: "mw_poc" }
+          - { tableName: "mw_epilepsy_followup" }
+          - { tableName: "mw_tb_post_lung_disease" }
+          - { tableName: "mw_pdc_visits" }
+          - { tableName: "mw_teen_club_intake_survey" }
+          - { tableName: "mw_mental_health_initial" }
+          - { tableName: "mw_tb_test_results" }
+          - { tableName: "mw_pdc_register" }
+          - { tableName: "mw_mental_health_followup" }
+          - { tableName: "mw_ncd_other_initial" }
+          - { tableName: "mw_ncd_other_followup" }
+          - { tableName: "mw_asthma_followup" }
+          - { tableName: "mw_diabetes_hypertension_annual_lab_tests" }
+          - { tableName: "mw_sickle_cell_disease_initial" }
+          - { tableName: "mw_sickle_cell_disease_quarterly_screening" }
+          - { tableName: "mw_sickle_cell_disease_annual_screening" }
+          - { tableName: "mw_sickle_cell_disease_followup" }

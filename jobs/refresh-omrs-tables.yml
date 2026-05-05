@@ -31,41 +31,41 @@ configuration:
     - type: "iterating-job"
       description: "Refresh OMRS reference-data lookup tables"
       parameters:
-        schemaDir: "pentaho/openmrs/schema"
+        baseDir: "pentaho/openmrs"
       configuration:
         maxConcurrentJobs: 1
         jobTemplate:
           path: "refresh-warehouse-table.yml"
         iterations:
-          - { tableName: "lookup_concept",         jobPath: "pentaho/openmrs/transforms/setup-reference-concepts.ktr" }
-          - { tableName: "lookup_location",        jobPath: "pentaho/openmrs/transforms/setup-reference-locations.ktr" }
-          - { tableName: "lookup_identifier_type", jobPath: "pentaho/openmrs/transforms/setup-reference-identifier-types.ktr" }
-          - { tableName: "lookup_encounter_type",  jobPath: "pentaho/openmrs/transforms/setup-reference-encounter-types.ktr" }
-          - { tableName: "lookup_user",            jobPath: "pentaho/openmrs/transforms/setup-reference-users.ktr" }
-          - { tableName: "lookup_person_name",     jobPath: "pentaho/openmrs/transforms/setup-reference-person-name.ktr" }
-          - { tableName: "lookup_provider_name",   jobPath: "pentaho/openmrs/transforms/setup-reference-provider-name.ktr" }
-          - { tableName: "lookup_form",            jobPath: "pentaho/openmrs/transforms/setup-reference-forms.ktr" }
-          - { tableName: "lookup_drug",            jobPath: "pentaho/openmrs/transforms/setup-reference-drugs.ktr" }
-          - { tableName: "lookup_visit_type",      jobPath: "pentaho/openmrs/transforms/setup-reference-visit-types.ktr" }
+          - { tableName: "lookup_concept" }
+          - { tableName: "lookup_location" }
+          - { tableName: "lookup_identifier_type" }
+          - { tableName: "lookup_encounter_type" }
+          - { tableName: "lookup_user" }
+          - { tableName: "lookup_person_name" }
+          - { tableName: "lookup_provider_name" }
+          - { tableName: "lookup_form" }
+          - { tableName: "lookup_drug" }
+          - { tableName: "lookup_visit_type" }
 
     # --- 3. Standard 1:1 table refreshes (drop → create → load → index) ---
     - type: "iterating-job"
       description: "Refresh OMRS warehouse tables"
       parameters:
-        schemaDir: "pentaho/openmrs/schema"
+        baseDir: "pentaho/openmrs"
       configuration:
         maxConcurrentJobs: 1
         jobTemplate:
           path: "refresh-warehouse-table.yml"
         iterations:
-          - { tableName: "omrs_patient",            jobPath: "pentaho/openmrs/transforms/import-into-omrs-patient.ktr" }
-          - { tableName: "omrs_patient_identifier", jobPath: "pentaho/openmrs/transforms/import-into-omrs-patient-identifier.ktr" }
-          - { tableName: "omrs_relationship",       jobPath: "pentaho/openmrs/transforms/import-into-omrs-relationship.ktr" }
-          - { tableName: "omrs_visit",              jobPath: "pentaho/openmrs/transforms/import-into-omrs-visit.ktr" }
-          - { tableName: "omrs_program_enrollment", jobPath: "pentaho/openmrs/transforms/import-into-omrs-program-enrollment.ktr" }
-          - { tableName: "omrs_program_state",      jobPath: "pentaho/openmrs/transforms/import-into-omrs-program-state.ktr" }
-          - { tableName: "omrs_encounter_provider", jobPath: "pentaho/openmrs/transforms/import-into-omrs-encounter-provider.ktr" }
-          - { tableName: "omrs_encounter",          jobPath: "pentaho/openmrs/transforms/import-into-omrs-encounter.ktr" }
+          - { tableName: "omrs_patient" }
+          - { tableName: "omrs_patient_identifier" }
+          - { tableName: "omrs_relationship" }
+          - { tableName: "omrs_visit" }
+          - { tableName: "omrs_program_enrollment" }
+          - { tableName: "omrs_program_state" }
+          - { tableName: "omrs_encounter_provider" }
+          - { tableName: "omrs_encounter" }
 
     # --- 4. omrs_obs + omrs_obs_group: a single .ktr writes to both tables ---
     - type: "job-pipeline"

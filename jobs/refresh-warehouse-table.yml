@@ -4,11 +4,14 @@
 #   3. loads the table by running its Pentaho transform
 #   4. creates the table's indexes (deferred for bulk-load performance)
 #
+# All four artifacts are looked up by ${tableName} under a single ${baseDir}:
+#   ${baseDir}/schema/table/${tableName}.sql
+#   ${baseDir}/schema/index/${tableName}.sql
+#   ${baseDir}/transforms/${tableName}.ktr
+#
 # Iteration variables:
-#   ${schemaDir}   - e.g., "pentaho/openmrs/schema"; must contain table/ and index/ subdirs
-#   ${tableName}   - e.g., "omrs_patient"; matches the .sql basename in both subdirs
-#   ${jobPath}     - e.g., "pentaho/openmrs/transforms/import-into-omrs-patient.ktr";
-#                    consumed by execute-pentaho-job.yml
+#   ${baseDir} - e.g., "pentaho/malawi" or "pentaho/openmrs"
+#   ${tableName} - e.g., "mw_patient"; matches the .sql and .ktr basenames
 type: "job-pipeline"
 description: "Refresh ${tableName}"
 configuration:
@@ -29,12 +32,18 @@ configuration:
         datasource: "mysqlReporting.yml"
         delimiter: ";"
         scripts:
-          - "${schemaDir}/table/${tableName}.sql"
-    - path: "execute-pentaho-job.yml"
+          - "${baseDir}/schema/table/${tableName}.sql"
+    - type: "iterating-job"
+      description: "Load ${tableName}"
+      configuration:
+        iterations:
+          - jobPath: "${baseDir}/transforms/${tableName}.ktr"
+        jobTemplate:
+          path: "execute-pentaho-job.yml"
     - type: "sql-execution"
       description: "Index ${tableName}"
       configuration:
         datasource: "mysqlReporting.yml"
         delimiter: ";"
         scripts:
-          - "${schemaDir}/index/${tableName}.sql"
+          - "${baseDir}/schema/index/${tableName}.sql"
