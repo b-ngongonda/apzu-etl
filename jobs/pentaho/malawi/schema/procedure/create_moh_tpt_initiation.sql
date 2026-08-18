@@ -4,15 +4,17 @@ BEGIN
 call create_age_groups();
 call create_hiv_cohort(@startDate,@endDate,@location,@birthDateDivider);
 
-insert into moh_tpt_initiation(sort_value,district,age_group,gender,new_start_three_hp,previous_start_three_hp,new_start_six_h,previous_start_six_h)
+insert into moh_tpt_initiation(sort_value,district,age_group,gender,tx_new,tx_new_eligible_tpt,new_start_three_hp,previous_start_three_hp,new_start_six_h,previous_start_six_h)
 
 select sort_value,@district as district,x.age_group, CASE WHEN x.gender="F" then 'Female' else 'Male' end as gender,
+CASE WHEN tx_new is null then 0 else tx_new end as tx_new,
+CASE WHEN tx_new_eligible_tpt IS NULL THEN 0 ELSE tx_new_eligible_tpt END AS tx_new_eligible_tpt,
 CASE WHEN new_start_three_hp is null then 0 else new_start_three_hp end as new_start_three_hp,
 CASE WHEN old_start_three_hp is null then 0 else old_start_three_hp end as previous_start_three_hp,
 CASE WHEN new_start_six_h is null then 0 else new_start_six_h end as new_start_six_h,
 CASE WHEN old_start_six_h is null then 0 else old_start_six_h end as previous_start_six_h
  from
-age_groups as x
+age_groups as x 
 LEFT OUTER JOIN
 (
 SELECT CASE
@@ -57,8 +59,17 @@ SELECT CASE
 	WHEN age >=1080 and gender = "M" THEN "90 plus years"
 	WHEN age >=1080 and gender = "F" THEN "90 plus years"
 END as age_group,gender,
-COUNT(IF(((initial_visit_date >= @startDate and transfer_in_date is null) or start_date >= @startDate)
+COUNT(IF(initial_visit_date BETWEEN @startDate AND @endDate and transfer_in_date is null, 1, NULL)) as tx_new,
+COUNT(IF((initial_visit_date BETWEEN @startDate AND @endDate AND transfer_in_date IS NULL)
+AND (gender='F' AND (initial_pregnant_or_lactating !='Currently breastfeeding child' is null OR initial_pregnant_or_lactating != 'Patient pregnant'))
+ #AND (gender='F' AND (initial_pregnant_or_lactating is null OR initial_pregnant_or_lactating = 'NO'))
+ AND (tb_status NOT IN ('Confirmed TB', 'Suspected TB')), 1, NULL)) AS tx_new_eligible_tpt,
+/*COUNT(IF(((initial_visit_date >= @startDate and transfer_in_date is null) or start_date >= @startDate)
+and ((first_inh_300 is not null and first_rfp_150 is not null) or first_rfp_inh is not null),1,NULL)) as new_start_three_hp,*/
+
+COUNT(IF((initial_visit_date BETWEEN @startDate AND @endDate and transfer_in_date is null)
 and ((first_inh_300 is not null and first_rfp_150 is not null) or first_rfp_inh is not null),1,NULL)) as new_start_three_hp,
+
 COUNT(IF(((initial_visit_date >= @startDate and transfer_in_date is null) or start_date >= @startDate)
 and (first_inh_300 is not null and first_rfp_150 is null),1,NULL)) as new_start_six_h,
 COUNT(IF(initial_visit_date < @startDate and previous_ipt_date < date_sub(@startDate, interval 1 month)

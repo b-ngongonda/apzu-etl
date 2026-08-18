@@ -1,8 +1,8 @@
-CREATE PROCEDURE `create_last_pdc_outcome_at_facility`(IN _endDate DATE, IN _location VARCHAR(255))
+CREATE PROCEDURE `create_chronic_care_outcome_at_facility`(IN _endDate DATE, IN _location VARCHAR(255))
 BEGIN
-	DROP TEMPORARY TABLE IF EXISTS pdc_last_facility_outcome;
+	DROP TEMPORARY TABLE IF EXISTS chronic_care_last_facility_outcome;
 
-    CREATE TEMPORARY TABLE pdc_last_facility_outcome(
+    CREATE TEMPORARY TABLE chronic_care_last_facility_outcome(
 		id INT PRIMARY KEY auto_increment,
 		index_desc int,
 		pat int,
@@ -14,7 +14,7 @@ BEGIN
 		end_date date,
 		location varchar(150)
 	) DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
-	 INSERT INTO pdc_last_facility_outcome (index_desc, pat,identifier, state,program,program_state_id, start_date,end_date,location)
+	 INSERT INTO chronic_care_last_facility_outcome (index_desc, pat,identifier, state,program,program_state_id, start_date,end_date,location)
     select index_desc, pat,identifier, state,program,program_state_id, start_date,end_date,location
 from (
 	SELECT
@@ -40,14 +40,14 @@ FROM (SELECT
       FROM omrs_program_state,
                     (SELECT @r:= 1) AS r,
                     (SELECT @u:= 0) AS u
-                    where program = "Pediatric Development Clinic Program"
+                    where program IN ("Chronic care program")
                     and start_date <= _endDate
                     and location =  _location
             ORDER BY patient_id DESC, start_date DESC, program_state_id DESC
             ) index_descending
             join omrs_patient_identifier opi on index_descending.patient_id = opi.patient_id
             and opi.location = index_descending.location
-            and opi.type = "PDC Identifier"
+            and opi.type = "Chronic Care Number"
             where index_desc = 1
 ) each_outcome_at_facility;
 END

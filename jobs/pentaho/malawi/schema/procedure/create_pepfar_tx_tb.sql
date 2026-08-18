@@ -114,7 +114,8 @@ select distinct(mwp.patient_id), opi.identifier, mwp.first_name, mwp.last_name, 
 JOIN
          last_facility_outcome as ops
             on opi.patient_id = ops.pat and opi.location = ops.location
-            where opi.type = "ARV Number"
+            where opi.type = "ARV Number" and ops.state = 'On antiretrovirals'
+			and floor(datediff(@endDate, last_appt_date)) <= @defaultOneMonth
 )sub1
  group by age_group,gender, location
  order by gender,age_group,location, state

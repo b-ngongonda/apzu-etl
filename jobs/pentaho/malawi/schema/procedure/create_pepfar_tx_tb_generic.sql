@@ -49,14 +49,16 @@ SELECT "All" as age_group, _ageGroup as gender,
 
 from
 (
-	select * from hiv_cohort where  
+	select * from hiv_cohort hc
+    where  
 	(case 
 		WHEN _ageGroup = "FP" then pregnant_or_lactating = "Patient Pregnant" and gender = "F"
 		when _ageGroup = "FNP" then (pregnant_or_lactating = "No" or pregnant_or_lactating is null) and gender = "F"
 		WHEN _ageGroup = "FBF" then pregnant_or_lactating = "Currently breastfeeding child" and gender = "F"
 		WHEN _ageGroup = "Male"  then gender = "M"
 	 end)
-    
+    and state = 'On antiretrovirals'
+	and floor(datediff(@endDate, hc.last_appt_date)) <= @defaultOneMonth
 ) sub1;
 
 END

@@ -31,6 +31,7 @@ configuration:
     - { type: "procedure", name: "create_age_groups", delimiter: "" }
     - { type: "procedure", name: "create_last_art2_outcome_at_facility", delimiter: "" }
     - { type: "procedure", name: "create_chronic_care_outcome", delimiter: "" }
+    - { type: "procedure", name: "create_chronic_care_outcome_at_facility", delimiter: "" }  
     - { type: "procedure", name: "create_changed_regimen_list", delimiter: "" }
     - { type: "procedure", name: "create_hiv_cohort", delimiter: "" }
     - { type: "procedure", name: "create_age_groups_for_tpt", delimiter: "" }
