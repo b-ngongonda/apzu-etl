@@ -40,7 +40,8 @@ DROP TEMPORARY TABLE IF EXISTS hiv_cohort;
 		 previous_ipt_date DATE,
 		 systolic_bp INT,
          diastolic_bp INT,
-         followup_visit_date DATE
+         followup_visit_date DATE,
+         tb_status varchar(100)
      );
 
 call create_last_art_outcome_at_facility(_endDate,_location);
@@ -48,7 +49,7 @@ call create_last_art_outcome_at_facility(_endDate,_location);
 insert into hiv_cohort(patient_id,identifier,state,start_date,gender,age,location,last_appt_date,current_regimen,
 pregnant_or_lactating,initial_pregnant_or_lactating,initial_visit_date,transfer_in_date,first_ipt_date,first_inh_300,first_inh_300_pills,
 first_rfp_150,first_rfp_150_pills,first_rfp_inh,first_rfp_inh_pills,last_inh_300,last_inh_300_pills,last_rfp_150,last_rfp_150_pills,last_rfp_inh,last_rfp_inh_pills,last_ipt_date,previous_inh_300,previous_inh_300_pills,previous_rfp_150,
- previous_rfp_150_pills,previous_rfp_inh,previous_rfp_inh_pills,previous_ipt_date, systolic_bp, diastolic_bp, followup_visit_date)
+ previous_rfp_150_pills,previous_rfp_inh,previous_rfp_inh_pills,previous_ipt_date, systolic_bp, diastolic_bp, followup_visit_date,tb_status)
 
 select distinct(mwp.patient_id) as patient_id, opi.identifier,ops.state,ops.start_date, mwp.gender,
  If(ops.state = "On antiretrovirals",floor(datediff(_endDate,mwp.birthdate)/_birthDateDivider),floor(datediff(ops.start_date,mwp.birthdate)/_birthDateDivider)) as age, 
@@ -56,11 +57,11 @@ select distinct(mwp.patient_id) as patient_id, opi.identifier,ops.state,ops.star
  patient_visit.pregnant_or_lactating, patient_initial_visit.initial_pregnant_or_lactating, patient_initial_visit.initial_visit_date,
  patient_initial_visit.transfer_in_date,first_ipt_date,first_inh_300,first_inh_300_pills,first_rfp_150,first_rfp_150_pills,first_rfp_inh,first_rfp_inh_pills,last_inh_300,last_inh_300_pills,last_rfp_150,
  last_rfp_150_pills,last_rfp_inh,last_rfp_inh_pills,last_ipt_date,previous_inh_300,previous_inh_300_pills,previous_rfp_150,
- previous_rfp_150_pills,previous_rfp_inh,previous_rfp_inh_pills,previous_ipt_date, systolic_bp, diastolic_bp, followup_visit_date
+ previous_rfp_150_pills,previous_rfp_inh,previous_rfp_inh_pills,previous_ipt_date, systolic_bp, diastolic_bp, followup_visit_date, tb_status
 from  mw_patient mwp  
 LEFT join (
 	select map.patient_id, map.visit_date as followup_visit_date, map.next_appointment_date as last_appt_date, map.art_regimen, 
-    map.pregnant_or_lactating,systolic_bp, diastolic_bp
+    map.pregnant_or_lactating,systolic_bp, diastolic_bp, tb_status
     from mw_art_followup map
 join
 (

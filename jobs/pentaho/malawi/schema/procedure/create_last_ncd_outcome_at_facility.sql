@@ -6,6 +6,7 @@ BEGIN
 		id INT PRIMARY KEY auto_increment,
 		index_desc int,
 		pat int,
+        identifier varchar(50),
 		state varchar(50),
 		program varchar(50),
         program_state_id int,
@@ -13,8 +14,8 @@ BEGIN
 		end_date date,
 		location varchar(150)
 	) DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
-	 INSERT INTO last_ncd_facility_outcome (index_desc, pat, state,program,program_state_id, start_date,end_date,location)
-    select index_desc, pat, state,program,program_state_id, start_date,end_date,location
+	 INSERT INTO last_ncd_facility_outcome (index_desc, pat,identifier, state,program,program_state_id, start_date,end_date,location)
+    select index_desc, pat,identifier, state,program,program_state_id, start_date,end_date,location
 from (
 	SELECT
 index_desc,
