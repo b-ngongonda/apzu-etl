@@ -68,6 +68,7 @@ configuration:
     - tableName: "mw_lab_tests"
     - tableName: "mw_mental_health_followup"
     - tableName: "mw_mental_health_initial"
+    - tableName: "mw_mental_health_screening"
     - tableName: "mw_ncd_diagnoses"
     - tableName: "mw_ncd_other_followup"
     - tableName: "mw_ncd_other_initial"
